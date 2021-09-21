@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 20:47:45 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/09/21 03:08:59 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/09/21 16:09:37 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(char const *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(const char *s);
 char	*get_next_line(int fd);
 
 #endif

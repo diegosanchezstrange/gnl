@@ -6,12 +6,11 @@
 /*   By: dsanchez <dsanchez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:28:48 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/09/21 12:58:25 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/09/21 17:15:18 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 size_t	ft_strlen(char const *s)
 {
@@ -25,64 +24,52 @@ size_t	ft_strlen(char const *s)
 	return (len);
 }
 
-void		*ft_memmove(void *dst, void *src, size_t len)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char *d;
-	char *s;
+	unsigned char	*cdest;
+	unsigned char	*csrc;
+	size_t			i;
 
-	d = (char *)dst;
-	s = (char *)src;
-	if (dst == src)
-		return (dst);
-	if (s < d)
+	if (!dest && !src)
+		return (dest);
+	cdest = (unsigned char *)dest;
+	csrc = (unsigned char *)src;
+	i = n;
+	if (csrc <= cdest)
 	{
-		while (len--)
-			*(d + len) = *(s + len);
-		return (dst);
+		while (i--)
+			cdest[i] = csrc[i];
 	}
-	while (len--)
-		*d++ = *s++;
-	return (dst);
+	else
+	{
+		i = 0;
+		while (i < n)
+		{
+			cdest[i] = csrc[i];
+			i++;
+		}
+	}
+	return (dest);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*res;
+	int		s1_l;
+	int		s2_l;
+	int		s_l;
 
-	if ((!s1 && !s2) || ft_strlen(s1) + ft_strlen(s2) == 0)
+	s1_l = ft_strlen(s1);
+	s2_l = ft_strlen(s2);
+	s_l = s1_l + s2_l;
+	if ((!s1 && !s2) || s_l == 0)
 		return (NULL);
-	res = (char *) malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	res = (char *) malloc(s_l + 1);
 	if (!res)
 		return (NULL);
-	ft_memmove(res, s1, ft_strlen(s1));
-	ft_memmove(res + ft_strlen(s1), s2, ft_strlen(s2));
-	res[ft_strlen(s1) + ft_strlen(s2)] = 0;
+	ft_memmove(res, s1, s1_l);
+	ft_memmove(res + s1_l, s2, s2_l);
+	res[s_l] = 0;
 	free(s1);
 	return (res);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*substr;
-	size_t	size;
-	size_t	i;
-
-	i = 0;
-	size = len;
-	if (s == NULL)
-		return (NULL);
-	if (start >= ft_strlen(s))
-		size = 0;
-	else if (ft_strlen(s) < len)
-		size = ft_strlen(s) - start;
-	substr = (char *)malloc((size + 1) * sizeof(char));
-	if (!substr)
-		return (NULL);
-	while (s[i + start] && i < size)
-	{
-		substr[i] = s[i + start];
-		i++;
-	}
-	substr[i] = 0;
-	return (substr);
 }
