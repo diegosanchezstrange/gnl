@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 int	next_nl(char *line)
 {
@@ -87,10 +86,8 @@ char	*get_next_line(int fd)
 {
 	char		*buff;
 	int			r;
-	int			i;
 	static char	*line;
-
-	i = 0;
+	
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buff = malloc(BUFFER_SIZE + 1);
@@ -107,7 +104,6 @@ char	*get_next_line(int fd)
 		}
 		buff[r] = '\0';
 		line = ft_strjoin(line, buff);
-		i++;
 	}
 	free(buff);
 	buff = get_res(line);
